@@ -1,0 +1,102 @@
+body{
+	font-family:'Orator Std';
+	font-size:14pt;
+	font-color:#333333;
+}
+
+h1{
+	padding-top:50px;
+	font-size:20pt;
+	text-align: center;
+}
+
+p {
+	font-family:'karla';
+	margin-left:80px;
+	margin-right:80px;
+	text-align: center;
+	line-height:18pt;
+}
+
+a{
+	text-decoration: none;
+	color:#333333;
+}
+
+a:hover{
+	text-decoration: underline;
+	color:#00540A;
+}
+
+.logo{
+	margin-top:40px;
+	width:180px;
+	height:auto;
+	text-align: center;
+}
+
+#navbar{
+	text-align:center;
+}
+
+.nav-list{
+	margin-top:30px;
+	list-style-type: none;
+	display:inline;
+}
+
+.nav-option{
+	display:inline;
+	padding-left:30px;
+	padding-right:30px;
+}
+
+#introduction1{
+	height:500px;
+	background-image: url('../img/bg.jpg');
+	background-repeat:no-repeat;
+}
+
+.hello{
+	display:inline;
+	height:200px;
+	margin-left:400px;
+	margin-top:150px;
+}
+
+.howitworks{
+	height:400px;
+	margin-top:10px;
+	margin-left:180px;
+}
+
+#about1{
+	background-color: #F7F4F0;
+	height:720px;
+}
+
+#how-it-work1{
+	height:500px;
+}
+
+#moving-forward1{
+	background-color: #F7F4F0;
+	height:500px;
+}
+
+#the-makers1{
+	height:500px;
+}
+
+#footer{
+	background-color: #333333;
+	height:100px;
+}
+
+.copyright{
+	padding-top:30px;
+	color:white;
+	text-align: center;
+	font-size:9pt;
+}
+
