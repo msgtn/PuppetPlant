@@ -25,6 +25,7 @@ while (True):
     w = obs.get_weather();
     # only want current temperature reading (celsius)
     out_temp = w.get_temperature('celsius')['temp'];
+    print out_temp;
     a.write(str(out_temp));
     time.sleep(1);
     print a.readline();
@@ -36,6 +37,6 @@ while (True):
     a.write(str(d.minute));
     time.sleep(1);
     
-    time.sleep(3);
+#     time.sleep(3);
     
     
