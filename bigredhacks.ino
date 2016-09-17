@@ -37,6 +37,12 @@ volatile int h = 0;
 volatile int m = 0;
 
 void setup() {
+  // LCD init
+  lcd.begin(16, 2);
+  lcd.setCursor(0, 0);
+  lcd.print("NAME HERE");
+  lcd.setCursor(0, 1);
+  lcd.print("Starting...");
 
   // Serial init
   Serial.begin(9600);
@@ -45,9 +51,6 @@ void setup() {
   Serial.read();
   Serial.println("Start");
   
-  // LCD init
-  lcd.begin(16, 2);
-  lcd.setCursor(0, 0);
   lcd.print("Out");
   lcd.setCursor(0,1);
   lcd.print("In");

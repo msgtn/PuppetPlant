@@ -11,8 +11,8 @@ import datetime
 
 # connect and mandatory wait
 a = serial.Serial('/dev/cu.usbmodem14141', 9600);
-time.sleep(5);
-# start message
+time.sleep(2);
+# send start message, wait for ack
 a.write('a');
 time.sleep(1);
 a.readline();
