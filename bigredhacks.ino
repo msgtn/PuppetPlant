@@ -7,9 +7,12 @@ float resistance;
 #define temp_pin A0
 
 // LCD display
-#include <SPI.h>
-#include <LiquidCrystal.h>
-LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
+//#include <SPI.h>
+//#include <LiquidCrystal.h>
+//LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
+#include <Wire.h>
+#include "rgb_lcd.h"
+rgb_lcd lcd;
 
 // Servos
 #include <Servo.h>
@@ -49,6 +52,7 @@ volatile int m = 0;
 void setup() {
   // LCD init
   lcd.begin(16, 2);
+  lcd.setRGB(0, 255, 0);
   lcd.setCursor(0, 0);
   lcd.print("NAME HERE");
   lcd.setCursor(0, 1);
@@ -142,6 +146,7 @@ void setColorDigital(int led[], int red, int green)
 {
   digitalWrite(led[0], red);
   digitalWrite(led[1], green); 
+  lcd.setRGB(red*255, green*255, 0);
 }
 
 void setLedTime() {
@@ -170,21 +175,28 @@ void loop() {
   sweep_12(45, 90, 0, 180);
   setColorDigital(led_2, 1, 0);
   setColorDigital(led_3, 1, 0);
-  setColorDigital(led_4, 1, 0);
+  setColorDigital(led_4, 1,  0);
   setColorDigital(led_5, 1, 0);
 
   // get temperature reading from python
   if (Serial.available() > 0) {
     float out_temp = Serial.parseFloat();
-    Serial.println(in_temp - out_temp);
+    Serial.println(in_temp);
     lcd.setCursor(4, 0);
     lcd.print(String(out_temp));
 
     // print time things
     h = Serial.parseInt();
     m = Serial.parseInt();
-    lcd.setCursor(14, 0);
-    lcd.print(m);
+    if (m <= 9) {
+      lcd.setCursor(15,0);
+      lcd.print(m);
+      lcd.setCursor(14,0);
+      lcd.print("0");
+    } else {
+      lcd.setCursor(14,0);
+      lcd.print(m);
+    }
     lcd.setCursor(13, 0);
     lcd.print(":");
     if (h > 9) {

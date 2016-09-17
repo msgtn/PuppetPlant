@@ -8,9 +8,11 @@ import serial
 import time
 # datetime for time
 import datetime
+# urllib for sending data to website
+import urllib2, urllib
 
 # connect and mandatory wait
-a = serial.Serial('/dev/cu.usbmodem14141', 9600);
+a = serial.Serial('/dev/cu.usbmodem1411', 9600);
 time.sleep(2);
 # send start message, wait for ack
 a.write('a');
@@ -28,7 +30,8 @@ while (True):
     print out_temp;
     a.write(str(out_temp));
     time.sleep(1);
-    print a.readline();
+    in_temp = a.readline();
+    print in_temp
     
     # get the hour
     d = datetime.datetime.now();
@@ -37,6 +40,12 @@ while (True):
     a.write(str(d.minute));
     time.sleep(1);
     
-#     time.sleep(3);
+    # post data stuff
+    temp_data = [('out_temp', str(out_temp)), ('in_temp', str(in_temp))];
+    temp_data = urllib.urlencode(temp_data);
+    post_path = '';
+    req = urllib2.Request(post_path, temp_data);
+    req.add_header('Content-type', 'application/x-www-form-urlencoded');
+    
     
     
