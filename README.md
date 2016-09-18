@@ -4,6 +4,8 @@
 
 A robotic plant companion that responds to the energy consumed by your home temperature control system.
 
+![alt tag](/img/green.jpg) ![alt tag](/img/red.jpg)
+
 # Features
 
 - Plant motion adapts to the current environment to gain the user's attention
