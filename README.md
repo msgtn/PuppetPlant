@@ -2,7 +2,9 @@
 
 ![alt tag](/img/logo.png) ![alt tag](/img/brh.png)
 
+
 A robotic plant companion that responds to the energy consumed by your home temperature control system.
+
 
 ![alt tag](/img/green.png) ![alt tag](/img/red.png)
 
