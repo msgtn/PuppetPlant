@@ -1,6 +1,6 @@
 # BigRed//Hacks - Puppet Plant
 
-![](/img/brh.png =296x296) ![alt tag](/img/logo.png)
+![](./img/brh.png =296x296) ![alt tag](/img/logo.png)
 
 A robotic plant companion that responds to the energy consumed by your home temperature control system.
 
