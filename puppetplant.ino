@@ -353,7 +353,9 @@ void loop() {
     lcd.print("     ");
     // print time things
     h = Serial.parseInt();
+    delay(200);
     m = Serial.parseInt();
+    delay(200);
     // print minutes
     // minute is 2 digits
     if (m > 9) {
