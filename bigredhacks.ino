@@ -54,7 +54,7 @@ void setup() {
   lcd.begin(16, 2);
   lcd.setRGB(0, 255, 0);
   lcd.setCursor(0, 0);
-  lcd.print("NAME HERE");
+  lcd.print("Puppet Plant");
   lcd.setCursor(0, 1);
   lcd.print("Starting...");
 

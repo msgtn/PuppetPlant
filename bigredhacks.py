@@ -43,7 +43,7 @@ while (True):
     # post data stuff
     temp_data = [('out_temp', str(out_temp)), ('in_temp', str(in_temp))];
     temp_data = urllib.urlencode(temp_data);
-    post_path = '';
+    post_path = 'http://localhost/demo.php';
     req = urllib2.Request(post_path, temp_data);
     req.add_header('Content-type', 'application/x-www-form-urlencoded');
     
