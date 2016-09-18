@@ -18,6 +18,10 @@ A robotic plant companion that responds to the energy consumed by your home temp
 - TowerPro Micro Servos
 - RGB LEDs
 
+# Team members
+
+![alt tag](/img/themakers.png)
+
 # Credits
 
 - OpenWeatherMap API 
