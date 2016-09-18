@@ -1,4 +1,4 @@
-# BigRed//Hacks - Puppet Plant
+# BigRed//Hacks - PuppetPlant
 
 ![alt tag](/img/logo.png) ![alt tag](/img/brh.png)
 
