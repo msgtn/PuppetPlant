@@ -15,7 +15,7 @@ import sys
 
 # connect and mandatory wait
 if (len(sys.argv) == 1):
-    ard_port = 'dev/cu.usbmodem14141';
+    ard_port = '/dev/cu.usbmodem14141';
 else :
     ard_port = sys.argv[1]
 a = serial.Serial(ard_port, 9600);
@@ -41,7 +41,8 @@ while (True):
     
     # get the hour
     d = datetime.datetime.now();
-    a.write(str(d.hour));
+#     a.write(str(d.hour));
+    a.write('12');
     time.sleep(1);
     a.write(str(d.minute));
     time.sleep(1);

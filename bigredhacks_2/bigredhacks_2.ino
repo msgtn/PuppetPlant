@@ -6,8 +6,8 @@ int B=3975;                  //B value of the thermistor
 float resistance;
 #define temp_pin A0
 // define temperature comfortability limits
-#define temp_c_min 22
-#define temp_c_max 26
+#define temp_c_min 20
+#define temp_c_max 27
 
 // Grove button things
 #define button_pin 18
@@ -34,10 +34,10 @@ volatile int servo_2_pos;
 #define servo_1_up 135
 #define servo_2_down 135
 #define servo_2_up 45
-#define servo_breathe 20 
+int servo_breathe[] = {30, 25, 20};
 void sweep(Servo &s, int a, int b);
 const int servo_inc = 1;
-const int servo_del = 10;
+int servo_del = 15;
 
 // LEDs
 // sun/moon
@@ -95,17 +95,15 @@ void setup() {
   lcd.print("                ");
   lcd.setCursor(0, 1);
   lcd.print("                ");
-  lcd.setCursor(0, 0);
-  lcd.print("Out");
-  lcd.setCursor(0,1);
-  lcd.print("In");
-  lcd.setCursor(9, 0);
+  lcd.setCursor(5, 0);
   lcd.print("C");
-  lcd.setCursor(9, 1);
+  lcd.setCursor(5, 1);
+  lcd.print("C");
+  lcd.setCursor(10, 1);
   lcd.print("C");
   // get an initial actual temperature reading
   in_temp = getTemp();
-  lcd.setCursor(4, 1);
+  lcd.setCursor(0, 1);
   lcd.print(String(in_temp));
 
   // Servo init
@@ -138,27 +136,59 @@ void setup() {
   delay(1000);
 }
 
-// let servo s move from a to b
+//// let servo s move from a to b
+//void sweep(Servo &s, int a, int b) {
+//  // get the direction from a to b
+//  int i_sign = (b-a)/abs(b-a);
+//  for (int pos = a; pos <= b; pos += i_sign*servo_inc) {
+//    s.write(pos);
+//    delay(servo_del);
+//  }
+//}
+//
+//// move both servos
+//// move servo_1 from a to b
+//// move servo_2 from c to d
+//void sweep_12(int a, int b, int c, int d) {
+//  int i_sign = (b-a)/abs(b-a);
+//  for (int pos = a; pos <= b; pos += i_sign*servo_inc) {
+//    servo_1.write(pos);
+//    delay(servo_del);
+//    // must map range of 1 to range of 2
+//    servo_2.write(map(pos, a, b, c, d));
+//    delay(servo_del);
+//  }
+//}
+
 void sweep(Servo &s, int a, int b) {
-  // get the direction from a to b
-  int i_sign = (b-a)/abs(b-a);
-  for (int pos = a; pos <= b; pos += i_sign*servo_inc) {
-    s.write(pos);
-    delay(servo_del);
+  if (a < b) {
+    for (int pos = a; pos <= b; pos += servo_inc) {
+      s.write(pos);
+      delay(servo_del);
+    }
+  } else {
+    for (int pos = a; pos >= b; pos -= servo_inc) {
+      s.write(pos);
+      delay(servo_del);
+    }
   }
 }
 
-// move both servos
-// move servo_1 from a to b
-// move servo_2 from c to d
 void sweep_12(int a, int b, int c, int d) {
-  int i_sign = (b-a)/abs(b-a);
-  for (servo_1_pos = a; servo_1_pos <= b; servo_1_pos += i_sign*servo_inc) {
-    servo_1.write(servo_1_pos);
-    delay(servo_del);
-    // must map range of 1 to range of 2
-    servo_2.write(map(servo_1_pos, a, b, c, d));
-    delay(servo_del);
+  if (a < b) {
+    for (int pos = a; pos <= b; pos += servo_inc) {
+      servo_1.write(pos);
+      delay(servo_del);
+      servo_2.write(map(pos, a, b, c, d));
+      delay(servo_del);
+    }
+  } else {
+    for (int pos = a; pos >= b; pos -= servo_inc) {
+      servo_1.write(pos);
+      delay(servo_del);
+      servo_2.write(map(pos, a, b, c, d));
+      delay(servo_del);
+    }
   }
 }
 
@@ -200,9 +230,9 @@ float getTemp() {
 float tempChange() {
   temp_ref = map(analogRead(pot_pin), 0, 1024, temp_ref_min, temp_ref_max); 
   in_temp = in_temp + temp_gain*(temp_ref - in_temp);
-  lcd.setCursor(12, 1);
+  lcd.setCursor(8, 1);
   lcd.print(String(temp_ref));
-  lcd.setCursor(4, 1);
+  lcd.setCursor(0, 1);
   lcd.print(String(in_temp));
 }
 
@@ -218,13 +248,30 @@ bool getHappy() {
     happiness = max(happiness-h_inc, 0);
   }
 
+  // clear happiness
+  lcd.setCursor(13, 0);
+  lcd.print("   ");
+  // print happiness
+  if (happiness == 100) {
+    lcd.setCursor(13, 0);
+  } else if (happiness >= 10) {
+    lcd.setCursor(14, 0);
+  } else {
+    lcd.setCursor(15, 0);
+  }
+  lcd.print(String(happiness));
+
   // compare happiness to happy thresholds, update h_state
+  lcd.setCursor(14, 1);
   if (happiness > happy_2) {
     h_state = 2;
+    lcd.print(":D");
   } else if (happiness > happy_1) {
     h_state = 1;
+    lcd.print(":)");
   } else {
     h_state = 0;
+    lcd.print(":(");
   }
 }
 
@@ -250,30 +297,40 @@ void setHappy() {
   switch (h_state) {
     // both happy
     case 2:
+      sweep(servo_1, servo_1_pos, servo_1_up);
       servo_1_pos = servo_1_up;
+      sweep(servo_2, servo_2_pos, servo_2_up);
       servo_2_pos = servo_2_up;
       break;
     // only one happy
     case 1:
+      sweep(servo_1, servo_1_pos, servo_1_down);
       servo_1_pos = servo_1_down;
+      sweep(servo_2, servo_2_pos, servo_2_up);
       servo_2_pos = servo_2_up;
       break;
     // neither happy
     default:
+      sweep(servo_1, servo_1_pos, servo_1_down);
       servo_1_pos = servo_1_down;
+      sweep(servo_2, servo_2_pos, servo_2_down);
       servo_2_pos = servo_2_down;
   }
-  servo_1.write(servo_1_pos);
-  servo_2.write(servo_2_pos);
 }
 
 // let the branches "breathe"
 void breathe() {
-  int servo_1_max = servo_1_pos + servo_breathe;
-  int servo_1_min = servo_1_pos - servo_breathe;
-  int servo_2_max = servo_2_pos - servo_breathe;
-  int servo_2_min = servo_2_pos + servo_breathe;
-  sweep_12(servo_1_max, servo_1_min, servo_2_max, servo_2_min);
+  int servo_1_max = servo_1_pos + servo_breathe[h_state];
+  int servo_2_max = servo_2_pos - 1.2*servo_breathe[h_state];
+  
+  // do up to 3 random times, depending on happiness
+  // if fully happy, don't bother user
+  // more likely to bother user if lower happiness
+  int r = random(4-h_state);
+  for (int i = r; i > 0; i--) {
+    sweep_12(servo_1_pos, servo_1_max, servo_2_pos, servo_2_max);
+    sweep_12(servo_1_max, servo_1_pos, servo_2_max, servo_2_pos);
+  }
 }
 
 // loop
@@ -283,6 +340,7 @@ void loop() {
 
   // update the temperature display (will do this periodically)
   tempChange();
+  breathe();
   delay(100);
 
   // update happiness
@@ -294,7 +352,7 @@ void loop() {
     // get, print the current outside temperature
     float out_temp = Serial.parseFloat();
     Serial.println(in_temp);
-    lcd.setCursor(4, 0);
+    lcd.setCursor(0, 0);
     lcd.print(String(out_temp));
     tempChange();
 
@@ -303,23 +361,23 @@ void loop() {
     m = Serial.parseInt();
     // minute is 2 digits
     if (m > 9) {
-      lcd.setCursor(14,0);
+      lcd.setCursor(10,0);
       lcd.print(m);
     // minute is 1 digit
     } else {
-      lcd.setCursor(15,0);
+      lcd.setCursor(11,0);
       lcd.print(m);
-      lcd.setCursor(14,0);
+      lcd.setCursor(10,0);
       lcd.print("0");
     }
-    lcd.setCursor(13, 0);
+    lcd.setCursor(9, 0);
     lcd.print(":");
     // hour is 2 digits
     if (h > 9) {
-      lcd.setCursor(11, 0);
+      lcd.setCursor(7, 0);
     // minute is 1 digit
     } else {
-      lcd.setCursor(12, 0);
+      lcd.setCursor(8, 0);
     }
     lcd.print(h);
 
