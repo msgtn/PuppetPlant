@@ -215,6 +215,7 @@ float tempChange() {
     lcd.setCursor(9, 1);
   }
   lcd.print(String(temp_ref));
+  lcd.print("C");
   lcd.setCursor(0, 1);
   lcd.print("      ");
   lcd.setCursor(0, 1);
@@ -222,6 +223,7 @@ float tempChange() {
     lcd.setCursor(1, 1);
   }
   lcd.print(String(in_temp));
+  lcd.print("C");
 }
 
 // calculate whether the plant should be sad or happy
@@ -348,14 +350,14 @@ void loop() {
     lcd.print(String(out_temp));
     tempChange();
 
+    // get and print time things
+    h = Serial.parseInt();
+    Serial.println(h);
+    m = Serial.parseInt();
+    Serial.println(m);
     // clear time
     lcd.setCursor(7, 0);
     lcd.print("     ");
-    // print time things
-    h = Serial.parseInt();
-    delay(200);
-    m = Serial.parseInt();
-    delay(200);
     // print minutes
     // minute is 2 digits
     if (m > 9) {

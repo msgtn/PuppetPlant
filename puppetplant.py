@@ -42,10 +42,11 @@ while (True):
     # get the hour
     d = datetime.datetime.now();
     a.write(str(d.hour));
-#     a.write('12');
     time.sleep(1);
+    a.readline();
     a.write(str(d.minute));
     time.sleep(1);
+    a.readline();
     
     # post data stuff
     temp_data = [('out_temp', str(out_temp)), ('in_temp', str(in_temp))];
