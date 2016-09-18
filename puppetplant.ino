@@ -357,7 +357,7 @@ void loop() {
     Serial.println(m);
     // clear time
     lcd.setCursor(7, 0);
-    lcd.print("     ");
+    lcd.print("      ");
     // print minutes
     // minute is 2 digits
     if (m > 9) {
