@@ -1,6 +1,6 @@
-# Big Red//Hacks - Puppet Plant
+# BigRed//Hacks - Puppet Plant
 
-![alt tag](/img/logo.png)
+![alt tag](/img/logo.png) ![alt tag](/img/brh.png)
 
 A robotic plant companion that responds to the energy consumed by your home temperature control system.
 
@@ -24,6 +24,7 @@ A robotic plant companion that responds to the energy consumed by your home temp
 
 # Credits
 
+- Cornell University and BigRed//Hacks
 - OpenWeatherMap API 
 - Grove Studio Arduino component tutorials
 

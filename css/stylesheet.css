@@ -1,17 +1,17 @@
 body{
-	font-family:'Orator Std';
-	font-size:14pt;
+	font-family: 'Fira Mono', monospace;;
+	font-size:13pt;
 	font-color:#333333;
 }
 
 h1{
 	padding-top:50px;
-	font-size:24pt;
+	font-size:20pt;
 	text-align: center;
 }
 
 p {
-	font-family:'karla';
+	font-family: 'Karla', sans-serif;;
 	margin-left:80px;
 	margin-right:80px;
 	text-align: center;
@@ -76,7 +76,7 @@ a:hover{
 }
 
 #how-it-work1{
-	height:350px;
+	height:800px;
 }
 
 #moving-forward1{
@@ -95,7 +95,7 @@ a:hover{
 }
 
 .portrait {
-	font-family:'karla';
+	font-family: 'Karla', sans-serif;;
 	text-align: center;
 	width: 24%;
 	height:500px;
@@ -112,6 +112,11 @@ a:hover{
 	color:#00540A;
 }
 
+.video{
+	margin-left:550px;
+	margin-top:80px;
+}
+
 #footer{
 	background-color: #333333;
 	height:100px;
@@ -124,3 +129,7 @@ a:hover{
 	font-size:9pt;
 }
 
+.finalproduct{
+	height:500px;
+	margin-left:280px;
+}
