@@ -6,10 +6,10 @@ A robotic plant companion that responds to the energy consumed by your home temp
 
 # Features
 
+- Plant motion adapts to the current environment to gain the user's attention
 - Displays outdoor and indoor temperature
 - Built-in clock
 - Pseudo-thermostat control and display
-- Plant motion adapts to the current environment to gain the user's attention
 
 # Hardware
 
@@ -22,10 +22,10 @@ A robotic plant companion that responds to the energy consumed by your home temp
 
 ![alt tag](/img/themakers.png)
 
-# Credits
+# Credits and Acknowledgements
 
 - Cornell University and BigRed//Hacks
-- OpenWeatherMap API 
+- OpenWeatherMap API
 - Grove Studio Arduino component tutorials
-
+- Red Bull
 
